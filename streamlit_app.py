@@ -16,8 +16,8 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 my_dataframe = session.table("SMOOTHIES.public.FRUIT_OPTIONS").select(col('FRUIT_NAME'))
-#st.dataframe(data=my_dataframe, use_container_width=True)
-
+st.dataframe(data=my_dataframe, use_container_width=True)
+st.stop()
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients:'
     ,my_dataframe
@@ -38,7 +38,6 @@ if ingredients_list:
             values ('""" + ingredients_string + """','"""+name_on_order+"""')"""
 
     st.write(my_insert_stmt)
-    st.stop()
     time_to_insert = st.button('Submit Order')
 
     if time_to_insert:
